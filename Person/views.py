@@ -38,6 +38,7 @@ class RegionApiView(viewsets.ModelViewSet):
     serializer_class = RegionSerializer
 
 
+
 class CityApiView(viewsets.ModelViewSet):
     queryset = City.objects.all()
     serializer_class = CitySerializer

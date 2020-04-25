@@ -40,8 +40,6 @@ class DistrictSerializer(serializers.ModelSerializer):
 
 
 class CitySerializer(serializers.ModelSerializer):
-    district = DistrictSerializer(many=True)
-
     class Meta:
         model = City
         fields = ['id', 'name']
@@ -50,7 +48,7 @@ class CitySerializer(serializers.ModelSerializer):
 class RegionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Region
-        fields = ['id', 'name']
+        fields = '__all__'
 
 
 class BuildingSerializerForAddress(serializers.ModelSerializer):
@@ -80,7 +78,7 @@ class CitySerializerForAddress(serializers.ModelSerializer):
 class RegionSerializerForAddress(serializers.ModelSerializer):
     class Meta:
         model = Region
-        fields = ['id', 'name']
+        fields = ['id', 'name', ]
 
 
 class AddressSerializer(serializers.ModelSerializer):
@@ -92,14 +90,15 @@ class AddressSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Address
-        fields = ['id', 'name', 'region', 'city', 'district', 'street', 'building']
+        fields = ['id', 'name','region' ,'city', 'district', 'street', 'building']
 
 
 class PersonSerializer(serializers.ModelSerializer):
     diseases = DiseaseSerializer(many=True)
     habits = HabitSerializer(many=True)
     healths = HealthSerializer(many=True)
+    address = AddressSerializer()
 
     class Meta:
         model = Person
-        fields = ['id', 'name', 'username', 'phone_number', 'diseases', 'habits', 'healths']
+        fields = ['id', 'name', 'username', 'phone_number', 'diseases', 'habits', 'healths', 'address']

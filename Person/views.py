@@ -5,7 +5,8 @@ from rest_framework import viewsets
 
 from Person.models import Person, Habit, Disease, Health, Address, Region, City, District, Street, Building
 from Person.serializers import PersonSerializer, HealthSerializer, HabitSerializer, DiseaseSerializer, \
-    AddressSerializer, CitySerializer, RegionSerializer, DistrictSerializer, StreetSerializer, BuildingSerializer
+    AddressSerializer, CitySerializer, RegionSerializer, DistrictSerializer, StreetSerializer, BuildingSerializer, \
+    AddressCreateSerializer
 
 
 class PeopleApiView(viewsets.ModelViewSet):
@@ -31,6 +32,9 @@ class HealthApiView(viewsets.ModelViewSet):
 class AddressApiView(viewsets.ModelViewSet):
     queryset = Address.objects.all()
     serializer_class = AddressSerializer
+
+
+
 
 
 class RegionApiView(viewsets.ModelViewSet):

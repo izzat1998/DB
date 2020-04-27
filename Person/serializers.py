@@ -109,13 +109,9 @@ class AddressCreateSerializer(serializers.Serializer):
         street_id = validated_data.pop('street')
         building_id = validated_data.pop('building')
             ############HHHHHHHHH##############
-        region = Region.objects.get(id=region_id)
-        city = City.objects.get(id=city_id)
-        district = District.objects.get(id=district_id)
-        street = Street.objects.get(id=street_id)
-        building = Building.objects.get(id=building_id)
 
-        address = Address.objects.create(region=region, city=city, district=district, street=street, building=building,
+
+        address = Address.objects.create(region_id=region_id, city_id=city_id, district_id=district_id, street_id=street_id, building_id=building_id,
                                          name=name)
         print(address)
         return address

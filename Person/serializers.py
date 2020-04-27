@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from Person.models import Person, Habit, Health, Disease, Address, Region, City, District, Street
+from Person.models import Person, Habit, Health, Disease, Address, Region, City, District, Street, Building
 
 
 class HabitSerializer(serializers.ModelSerializer):
@@ -90,7 +90,31 @@ class AddressSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Address
-        fields = ['id', 'name','region' ,'city', 'district', 'street', 'building']
+        fields = ['id', 'name', 'region', 'city', 'district', 'street', 'building']
+
+
+class AddressCreateSerializer(serializers.Serializer):
+    name = serializers.CharField()
+    region = serializers.CharField()
+    city = serializers.CharField()
+    district = serializers.CharField()
+    street = serializers.CharField()
+    building = serializers.CharField()
+
+    def create(self, validated_data):
+        name = validated_data.pop('name')
+        region_id = validated_data.pop('region')
+        city_id = validated_data.pop('city')
+        district_id = validated_data.pop('district')
+        street_id = validated_data.pop('street')
+        building_id = validated_data.pop('building')
+            ############HHHHHHHHH##############
+
+
+        address = Address.objects.create(region_id=region_id, city_id=city_id, district_id=district_id, street_id=street_id, building_id=building_id,
+                                         name=name)
+        print(address)
+        return address
 
 
 class PersonSerializer(serializers.ModelSerializer):

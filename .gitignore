@@ -3,4 +3,6 @@ __ pycache __
 venv/
 .idea
 db.sqlite3
+migrations/
+.idea/
 /static

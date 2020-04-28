@@ -1,4 +1,3 @@
-
 from django.db import models
 
 
@@ -7,17 +6,17 @@ class Person(models.Model):
     name = models.CharField(max_length=240, blank=True, null=True)
     username = models.CharField(max_length=240, blank=True, null=True)
     phone_number = models.CharField(max_length=50, blank=True, null=True)
-    address = models.ForeignKey('Address',on_delete=models.CASCADE,null=True)
+    address = models.ForeignKey('Address', on_delete=models.CASCADE, null=True)
+    disease = models.ManyToManyField('Disease', related_name='people')
+    habit = models.ManyToManyField('Habit', related_name='people')
+    health = models.ManyToManyField('Health', related_name='people')
 
     def __str__(self):
         return self.name
 
 
-
-
 class Disease(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
-    person = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='diseases')
 
     def __str__(self):
         return self.name
@@ -25,7 +24,6 @@ class Disease(models.Model):
 
 class Habit(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
-    person = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='habits')
 
     def __str__(self):
         return self.name
@@ -33,7 +31,6 @@ class Habit(models.Model):
 
 class Health(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
-    person = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='healths')
 
     def __str__(self):
         return self.name
@@ -55,6 +52,7 @@ class Address(models.Model):
 
 class Region(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
+
     def __str__(self):
         return self.name
 

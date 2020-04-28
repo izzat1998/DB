@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render
 
@@ -12,6 +13,14 @@ from Person.serializers import PersonSerializer, HealthSerializer, HabitSerializ
 class PeopleApiView(viewsets.ModelViewSet):
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
+
+    def get_queryset(self):
+        qs = Person.objects.all()
+        query = self.request.GET.get('q')
+        if query is not None:
+            qs = qs.filter(
+                Q(disease__name__icontains=query) | Q(habit__name__icontains=query) | Q(health__name__icontains=query))
+        return qs
 
     def create(self, request, *args, **kwargs):
         name = request.data['name']
@@ -34,15 +43,36 @@ class DiseaseApiView(viewsets.ModelViewSet):
     queryset = Disease.objects.all()
     serializer_class = DiseaseSerializer
 
+    # def get_queryset(self):
+    #     qs = Disease.objects.all()
+    #     query = self.request.GET.get()
+    #     if query is not None:
+    #         qs = qs.filter()
+    #     return qs
+
 
 class HabitApiView(viewsets.ModelViewSet):
     queryset = Habit.objects.all()
     serializer_class = HabitSerializer
 
+    # def get_queryset(self):
+    #     qs = Disease.objects.all()
+    #     query = self.request.GET.get()
+    #     if query is not None:
+    #         qs = qs.filter()
+    #     return qs
+
 
 class HealthApiView(viewsets.ModelViewSet):
     queryset = Health.objects.all()
     serializer_class = HealthSerializer
+
+    # def get_queryset(self):
+    #     qs = Disease.objects.all()
+    #     query = self.request.GET.get()
+    #     if query is not None:
+    #         qs = qs.filter()
+    #     return qs
 
 
 class AddressApiView(viewsets.ModelViewSet):
@@ -62,6 +92,16 @@ class AddressApiView(viewsets.ModelViewSet):
         serializer = AddressSerializer(address)
         return JsonResponse(serializer.data, safe=False)
 
+    def get_queryset(self):
+        qs = Address.objects.all()
+        query = self.request.GET.get('q')
+        if query is not None:
+            qs = qs.filter(
+                Q(region__name__icontains=query) | Q(city__name__icontains=query) | Q(
+                    district__name__icontains=query) | Q(street__name__icontains=query) | Q(
+                    building__name__icontains=query))
+        return qs
+
 
 class RegionApiView(viewsets.ModelViewSet):
     queryset = Region.objects.all()
@@ -72,17 +112,48 @@ class CityApiView(viewsets.ModelViewSet):
     queryset = City.objects.all()
     serializer_class = CitySerializer
 
+    def get_queryset(self):
+        qs = City.objects.all()
+        query = self.request.GET.get('q')
+        if query is not None:
+            qs = qs.filter(
+                Q(region__name__icontains=query))
+        return qs
+
 
 class DistrictApiView(viewsets.ModelViewSet):
     queryset = District.objects.all()
     serializer_class = DistrictSerializer
+
+    def get_queryset(self):
+        qs = District.objects.all()
+        query = self.request.GET.get('q')
+        if query is not None:
+            qs = qs.filter(
+                Q(city__name__icontains=query))
+        return qs
 
 
 class StreetApiView(viewsets.ModelViewSet):
     queryset = Street.objects.all()
     serializer_class = StreetSerializer
 
+    def get_queryset(self):
+        qs = Street.objects.all()
+        query = self.request.GET.get('q')
+        if query is not None:
+            qs = qs.filter(
+                Q(street__name__icontains=query))
+        return qs
 
 class BuildingApiView(viewsets.ModelViewSet):
     queryset = Building.objects.all()
     serializer_class = BuildingSerializer
+
+    def get_queryset(self):
+        qs = Building.objects.all()
+        query = self.request.GET.get('q')
+        if query is not None:
+            qs = qs.filter(
+                Q(building__name__icontains=query))
+        return qs

@@ -13,6 +13,8 @@ class Person(models.Model):
         return self.name
 
 
+
+
 class Disease(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
     person = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='diseases')

@@ -9,4 +9,3 @@ class Statistics(models.Model):
     walking_meters_per_day = models.FloatField(null=True, blank=True)
     avg_num_of_cigarettes_per_day = models.FloatField(null=True, blank=True)
     avg_amount_of_alcohol_per_day = models.FloatField(null=True, blank=True)
-    

@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.http import JsonResponse
 from rest_framework import serializers
 
@@ -94,9 +95,6 @@ class AddressSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'region', 'city', 'district', 'street', 'building']
 
 
-
-
-
 class PersonSerializer(serializers.ModelSerializer):
     disease = DiseaseSerializer(many=True)
     habit = HabitSerializer(many=True)
@@ -106,3 +104,10 @@ class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
         fields = ['id', 'name', 'username', 'phone_number', 'disease', 'habit', 'health', 'address']
+
+
+class UserLoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'password']
+

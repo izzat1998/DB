@@ -1,10 +1,16 @@
 from django.db import models
 
+USER_TYPE = (
+    (0, 'Admin'),
+    (1, 'Person')
+)
 
-# Create your models here.
+
 class Person(models.Model):
     name = models.CharField(max_length=240, blank=True, null=True)
     username = models.CharField(max_length=240, blank=True, null=True)
+    password = models.CharField(max_length=100)
+    user_type = models.IntegerField(choices=USER_TYPE)
     phone_number = models.CharField(max_length=50, blank=True, null=True)
     address = models.ForeignKey('Address', on_delete=models.CASCADE, null=True)
     disease = models.ManyToManyField('Disease', related_name='people')

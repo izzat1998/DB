@@ -1,13 +1,19 @@
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
+from django.views import View
 from rest_framework import viewsets
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from Person.models import Person, Habit, Disease, Health, Address, Region, City, District, Street, Building
 from Person.serializers import PersonSerializer, HealthSerializer, HabitSerializer, DiseaseSerializer, \
-    AddressSerializer, CitySerializer, RegionSerializer, DistrictSerializer, StreetSerializer, BuildingSerializer
+    AddressSerializer, CitySerializer, RegionSerializer, DistrictSerializer, StreetSerializer, BuildingSerializer, \
+    UserLoginSerializer
 
 
 class PeopleApiView(viewsets.ModelViewSet):
@@ -30,13 +36,30 @@ class PeopleApiView(viewsets.ModelViewSet):
         healths_id = request.data['healths']
         diseases_id = request.data['diseases']
         habits_id = request.data['habits']
-        person = Person.objects.create(name=name, username=username, phone_number=phone_number, address_id=address_id)
+        password = request.data['password']
+        person = Person.objects.create(name=name, username=username, password=password, phone_number=phone_number, address_id=address_id)
         person.disease.add(*diseases_id)
         person.health.add(*healths_id)
         person.habit.add(*habits_id)
         person.save()
         serializer = PersonSerializer(person)
         return JsonResponse(serializer.data, safe=False)
+
+
+class PersonLoginApiView(APIView):
+    def post(self, request):
+        data = request.data
+        username = data['username']
+        password = data['password']
+        if username is None or password is None:
+            return Response({'error': 'Please provide both username and password!'})
+        user = authenticate(username=username, password=password)
+        if not user:
+            return Response({'error': 'Invalid credentials!'})
+        person = Person.objects.get(username=username, password=password)
+        return Response({'user_id': user.id,
+                         'username': user.username,
+                         'user_type': person.get_user_type_display()})
 
 
 class DiseaseApiView(viewsets.ModelViewSet):

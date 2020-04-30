@@ -70,6 +70,16 @@ TEMPLATES = [
         },
     },
 ]
+CORS_ALLOW_METHODS = [
+    '*'
+]
+
+CORS_ALLOW_HEADERS = [
+    '*'
+]
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 WSGI_APPLICATION = 'DB.wsgi.application'
 

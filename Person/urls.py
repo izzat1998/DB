@@ -6,7 +6,7 @@ from Person.views import PeopleApiView, HabitApiView, DiseaseApiView, HealthApiV
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register('people', PeopleApiView)
+router.register(' people', PeopleApiView)
 router.register('health', HealthApiView)
 router.register('disease', DiseaseApiView)
 router.register('habit', HabitApiView)

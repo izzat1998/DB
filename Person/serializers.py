@@ -103,7 +103,7 @@ class PersonSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Person
-        fields = ['id', 'name', 'username', 'phone_number', 'disease', 'habit', 'health', 'address']
+        fields = ['id', 'name', 'username', 'user_type', 'phone_number', 'disease', 'habit', 'health', 'address']
 
 
 class UserLoginSerializer(serializers.ModelSerializer):

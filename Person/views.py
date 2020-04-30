@@ -59,7 +59,7 @@ class PersonLoginApiView(APIView):
         person = Person.objects.get(username=username, password=password)
         return Response({'user_id': user.id,
                          'username': user.username,
-                         'user_type': person.get_user_type_display()})
+                         'user_type': person.user_type})
 
 
 class DiseaseApiView(viewsets.ModelViewSet):

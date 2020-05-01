@@ -11,11 +11,12 @@ class Person(models.Model):
     username = models.CharField(max_length=240, blank=True, null=True)
     password = models.CharField(max_length=100)
     user_type = models.IntegerField(choices=USER_TYPE)
+    birthdate = models.DateField(null=True, blank=True)
     phone_number = models.CharField(max_length=50, blank=True, null=True)
     address = models.ForeignKey('Address', on_delete=models.CASCADE, null=True)
-    disease = models.ManyToManyField('Disease', related_name='people')
-    habit = models.ManyToManyField('Habit', related_name='people')
-    health = models.ManyToManyField('Health', related_name='people')
+    disease = models.ManyToManyField('Disease', related_name='people', blank=True)
+    habit = models.ManyToManyField('Habit', related_name='people', blank=True)
+    health = models.ManyToManyField('Health', related_name='people', blank=True)
 
     def __str__(self):
         return self.name

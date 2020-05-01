@@ -85,6 +85,14 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 WSGI_APPLICATION = 'DB.wsgi.application'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 5,
+    'DEFAULT_PERMISSION_CLASSES': [],
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
+}
+
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 

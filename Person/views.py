@@ -25,7 +25,10 @@ class PeopleApiView(viewsets.ModelViewSet):
         query = self.request.GET.get('q')
         if query is not None:
             qs = qs.filter(
-                Q(disease__name__icontains=query) | Q(habit__name__icontains=query) | Q(health__name__icontains=query))
+                Q(disease__name__icontains=query) | Q(habit__name__icontains=query) | Q(
+                    health__name__icontains=query) | Q(address__region__name__icontains=query) | Q(
+                    address__city__name__icontains=query) | Q(address__district__name__icontains=query) | Q(
+                    address__street__name__icontains=query) | Q(address__building__name__icontains=query))
         return qs
 
     def create(self, request, *args, **kwargs):
@@ -37,7 +40,8 @@ class PeopleApiView(viewsets.ModelViewSet):
         diseases_id = request.data['diseases']
         habits_id = request.data['habits']
         password = request.data['password']
-        person = Person.objects.create(name=name, username=username, password=password, phone_number=phone_number, address_id=address_id)
+        person = Person.objects.create(name=name, username=username, password=password, phone_number=phone_number,
+                                       address_id=address_id)
         person.disease.add(*diseases_id)
         person.health.add(*healths_id)
         person.habit.add(*habits_id)
@@ -168,6 +172,7 @@ class StreetApiView(viewsets.ModelViewSet):
             qs = qs.filter(
                 Q(street__name__icontains=query))
         return qs
+
 
 class BuildingApiView(viewsets.ModelViewSet):
     queryset = Building.objects.all()

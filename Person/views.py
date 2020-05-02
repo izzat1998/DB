@@ -64,6 +64,7 @@ class PeopleApiView(viewsets.ModelViewSet):
         phone_number = request.data['phone_number']
         region = request.data['region']
         city = request.data['city']
+        print(city)
         district = request.data['district']
         street = request.data['street']
         building = request.data['building']

@@ -42,7 +42,7 @@ class PeopleApiView(viewsets.ModelViewSet):
             qs = qs.filter(address__building=building)
         if habit is not None:
             qs = qs.filter(habit=habit)
-        if disease is senot None:
+        if disease is not None:
             qs = qs.filter(disease=disease)
 
 

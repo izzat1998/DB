@@ -45,33 +45,23 @@ class PeopleApiView(viewsets.ModelViewSet):
         if disease is not None:
             qs = qs.filter(disease=disease)
 
-
-            # qs = qs.filter(address__region=region, address__city=city, address__district=district, address__street=street,
-            #                address__building=building, habit=habit, disease=disease)
-
-        # qs = qs.filter(
-        #         Q(disease__name__icontains=query) | Q(habit__name__icontains=query) | Q(
-        #             health__name__icontains=query) | Q(address__region__name__icontains=query) | Q(
-        #             address__city__name__icontains=query) | Q(address__district__name__icontains=query) | Q(
-        #             address__street__name__icontains=query) | Q(address__building__name__icontains=query))
         return qs
 
     def create(self, request, *args, **kwargs):
-        name = request.data['name']
-        username = request.data['username']
-        email = request.data['email']
-        gender = request.data['gender']
-        phone_number = request.data['phone_number']
-        region = request.data['region']
-        city = request.data['city']
-        district = request.data['district']
-        street = request.data['street']
-        building = request.data['building']
+        name = request.data.get('name')
+        username = request.data.get('username')
+        email = request.data.get('email')
+        gender = request.data.get('gender')
+        phone_number = request.data.get('phone_number')
+        region = request.data.get('region')
+        city = request.data.get('city')
+        district = request.data.get('district')
+        street = request.data.get('street')
+        building = request.data.get('building')
         diseases_id = request.data.getlist('diseases')
-        print(diseases_id)
         habits_id = request.data.getlist('habits')
-        password = request.data['password']
-        user_type = request.data['user_type']
+        password = request.data.get('password')
+        user_type = request.data.get('user_type')
         a = Address.objects.create(region_id=int(region), city_id=int(city), district_id=int(district), street_id=int(street), building_id=int(building))
         address_id = a.id
         person = Person.objects.create(name=name, username=username, password=password, phone_number=phone_number,

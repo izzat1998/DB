@@ -25,8 +25,8 @@ class DiseaseSerializer(serializers.ModelSerializer):
 
 class BuildingSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Street
-        fields = '__all__'
+        model = Building
+        fields = ['id', 'name', 'street']
 
 
 class StreetSerializer(serializers.ModelSerializer):

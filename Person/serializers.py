@@ -8,43 +8,43 @@ from Person.models import Person, Habit, Health, Disease, Address, Region, City,
 class HabitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Habit
-        fields = ['id', 'name']
+        fields = '__all__'
 
 
 class HealthSerializer(serializers.ModelSerializer):
     class Meta:
         model = Health
-        fields = ['id', 'name']
+        fields = '__all__'
 
 
 class DiseaseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Disease
-        fields = ['id', 'name']
+        fields = '__all__'
 
 
 class BuildingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Street
-        fields = ['id', 'name']
+        fields = '__all__'
 
 
 class StreetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Street
-        fields = ['id', 'name']
+        fields = '__all__'
 
 
 class DistrictSerializer(serializers.ModelSerializer):
     class Meta:
         model = District
-        fields = ['id', 'name']
+        fields = '__all__'
 
 
 class CitySerializer(serializers.ModelSerializer):
     class Meta:
         model = City
-        fields = ['id', 'name']
+        fields = '__all__'
 
 
 class RegionSerializer(serializers.ModelSerializer):

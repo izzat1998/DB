@@ -1,4 +1,7 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.utils.text import slugify
 
 USER_TYPE = (
     (0, 'Admin'),
@@ -8,7 +11,6 @@ GENDER = (
     (0, 'Male'),
     (1, 'Female')
 )
-
 
 
 class Person(models.Model):
@@ -70,6 +72,7 @@ def wtf(sender, instance, created, **kwargs):
     name = slug
     up = Address(name=name)
     up.save()
+
 
 class Region(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)

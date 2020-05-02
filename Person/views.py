@@ -64,19 +64,22 @@ class PeopleApiView(viewsets.ModelViewSet):
         phone_number = request.data['phone_number']
         region = request.data['region']
         city = request.data['city']
-        print(city)
         district = request.data['district']
         street = request.data['street']
         building = request.data['building']
-        diseases_id = request.data.get('diseases')
-        habits_id = request.data.get('habits')
+        diseases_id = request.data.getlist('diseases')
+        print(diseases_id)
+        habits_id = request.data.getlist('habits')
         password = request.data['password']
+        user_type = request.data['user_type']
         a = Address.objects.create(region_id=int(region), city_id=int(city), district_id=int(district), street_id=int(street), building_id=int(building))
         address_id = a.id
         person = Person.objects.create(name=name, username=username, password=password, phone_number=phone_number,
-                                       address_id=address_id, email=email, gender=gender)
-        person.disease.add(*diseases_id)
-        person.habit.add(*habits_id)
+                                       address_id=address_id, email=email, gender=gender, user_type=user_type)
+        if diseases_id:
+            person.disease.add(*diseases_id)
+        if habits_id:
+            person.habit.add(*habits_id)
         person.save()
         serializer = PersonSerializer(person)
         return JsonResponse(serializer.data, safe=False)

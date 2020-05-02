@@ -56,22 +56,22 @@ class Health(models.Model):
 
 class Address(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
-    region = models.ForeignKey('Region', on_delete=models.CASCADE)
-    city = models.ForeignKey('City', on_delete=models.CASCADE)
-    district = models.ForeignKey('District', on_delete=models.CASCADE)
-    street = models.ForeignKey('Street', on_delete=models.CASCADE)
+    region = models.ForeignKey('Region', on_delete=models.CASCADE, null=True)
+    city = models.ForeignKey('City', on_delete=models.CASCADE, null=True)
+    district = models.ForeignKey('District', on_delete=models.CASCADE, null=True)
+    street = models.ForeignKey('Street', on_delete=models.CASCADE, null=True)
     building = models.ForeignKey('Building', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return self.name
+        return f'{self.region} + '
 
 
-@receiver(post_save, sender=Address)
-def wtf(sender, instance, created, **kwargs):
-    slug = slugify(instance.name)
-    name = slug
-    up = Address(name=name)
-    up.save()
+# @receiver(post_save, sender=Address)
+# def wtf(sender, instance, created, **kwargs):
+#     slug = slugify(instance.name)
+#     name = slug
+#     up = Address(name=name)
+#     up.save()
 
 
 class Region(models.Model):

@@ -27,8 +27,10 @@ class PeopleApiView(viewsets.ModelViewSet):
         district = self.request.GET.get('district_id')
         street = self.request.GET.get('street_id')
         building = self.request.GET.get('building_id')
+        habit = self.request.GET.get('habit_id')
+        desease = self.request.GET.get('desease_id')
 
-        qs = qs.filter(region=region, city=city, district=district, street=street, building=building)
+        qs = qs.filter(address__region=region, address__city=city, address__district=district, address__street=street, address__building=building, habit=habit, desease=desease)
 
         # qs = qs.filter(
         #         Q(disease__name__icontains=query) | Q(habit__name__icontains=query) | Q(

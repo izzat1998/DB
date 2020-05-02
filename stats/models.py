@@ -13,3 +13,6 @@ class Statistics(models.Model):
 
     def __str__(self):
         return f'{self.person.username} + {self.id}'
+
+    class Meta:
+        db_table = 'Statistics'

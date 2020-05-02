@@ -31,8 +31,23 @@ class PeopleApiView(viewsets.ModelViewSet):
         disease = self.request.GET.get('disease_id')
 
         if region is not None:
-            qs = qs.filter(address__region=region, address__city=city, address__district=district, address__street=street,
-                           address__building=building, habit=habit, disease=disease)
+            qs = qs.filter(address__region=region)
+        if city is not None:
+            qs = qs.filter(address__city=city)
+        if district is not None:
+            qs = qs.filter(address__district=district)
+        if street is not None:
+            qs = qs.filter(address__street=street)
+        if building is not None:
+            qs = qs.filter(address__building=building)
+        if habit is not None:
+            qs = qs.filter(habit=habit)
+        if disease is senot None:
+            qs = qs.filter(disease=disease)
+
+
+            # qs = qs.filter(address__region=region, address__city=city, address__district=district, address__street=street,
+            #                address__building=building, habit=habit, disease=disease)
 
         # qs = qs.filter(
         #         Q(disease__name__icontains=query) | Q(habit__name__icontains=query) | Q(

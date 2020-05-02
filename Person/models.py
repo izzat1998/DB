@@ -82,7 +82,7 @@ class District(models.Model):
 
 class Street(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
-    distrcit = models.ForeignKey(District, on_delete=models.CASCADE, related_name='streets')
+    district = models.ForeignKey(District, on_delete=models.CASCADE, related_name='streets')
 
     def __str__(self):
         return self.name

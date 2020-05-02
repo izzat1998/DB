@@ -59,14 +59,22 @@ class PeopleApiView(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         name = request.data['name']
         username = request.data['username']
+        email = request.data['email']
+        gender = request.data['gender']
         phone_number = request.data['phone_number']
-        address_id = request.data['address']
+        region = request.data['region']
+        city = request.data['city']
+        district = request.data['district']
+        street = request.data['street']
+        building = request.data['building']
         healths_id = request.data['healths']
         diseases_id = request.data['diseases']
         habits_id = request.data['habits']
         password = request.data['password']
+        a = Address.objects.create(region_id=region, city_id=city, district_id=district, street_id=street, building_id=building)
+        address_id = a.id
         person = Person.objects.create(name=name, username=username, password=password, phone_number=phone_number,
-                                       address_id=address_id)
+                                       address_id=address_id, email=email, gender=gender)
         person.disease.add(*diseases_id)
         person.health.add(*healths_id)
         person.habit.add(*habits_id)

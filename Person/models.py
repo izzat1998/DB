@@ -22,7 +22,7 @@ class Person(models.Model):
     gender = models.IntegerField(choices=GENDER)
     birthdate = models.DateField(null=True, blank=True)
     phone_number = models.CharField(max_length=50, blank=True, null=True)
-    address = models.ForeignKey('Address', on_delete=models.CASCADE, null=True)
+    address = models.ForeignKey('Address', on_delete=models.CASCADE, null=True, blank=True)
     disease = models.ManyToManyField('Disease', related_name='people', blank=True)
     habit = models.ManyToManyField('Habit', related_name='people', blank=True)
     health = models.ManyToManyField('Health', related_name='people', blank=True)

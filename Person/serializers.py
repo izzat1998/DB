@@ -55,7 +55,7 @@ class RegionSerializer(serializers.ModelSerializer):
 
 class BuildingSerializerForAddress(serializers.ModelSerializer):
     class Meta:
-        model = Street
+        model = Building
         fields = '__all__'
 
 

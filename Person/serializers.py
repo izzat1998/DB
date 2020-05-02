@@ -56,31 +56,31 @@ class RegionSerializer(serializers.ModelSerializer):
 class BuildingSerializerForAddress(serializers.ModelSerializer):
     class Meta:
         model = Street
-        fields = ['id', 'name']
+        fields = '__all__'
 
 
 class StreetSerializerForAddress(serializers.ModelSerializer):
     class Meta:
         model = Street
-        fields = ['id', 'name']
+        fields = '__all__'
 
 
 class DistrictSerializerForAddress(serializers.ModelSerializer):
     class Meta:
         model = District
-        fields = ['id', 'name']
+        fields = '__all__'
 
 
 class CitySerializerForAddress(serializers.ModelSerializer):
     class Meta:
         model = City
-        fields = ['id', 'name']
+        fields = '__all__'
 
 
 class RegionSerializerForAddress(serializers.ModelSerializer):
     class Meta:
         model = Region
-        fields = ['id', 'name', ]
+        fields = '__all__'
 
 
 class AddressSerializer(serializers.ModelSerializer):
@@ -103,7 +103,7 @@ class PersonSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Person
-        fields = ['id', 'name', 'username', 'user_type', 'phone_number', 'disease', 'habit', 'health', 'address']
+        fields = '__all__'
 
 
 class UserLoginSerializer(serializers.ModelSerializer):

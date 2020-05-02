@@ -4,6 +4,11 @@ USER_TYPE = (
     (0, 'Admin'),
     (1, 'Person')
 )
+GENDER = (
+    ('0', 'Male'),
+    ('1', 'Female')
+)
+
 
 
 class Person(models.Model):
@@ -11,6 +16,8 @@ class Person(models.Model):
     username = models.CharField(max_length=240, blank=True, null=True)
     password = models.CharField(max_length=100)
     user_type = models.IntegerField(choices=USER_TYPE)
+    email = models.EmailField()
+    gender = models.IntegerField(choices=GENDER)
     birthdate = models.DateField(null=True, blank=True)
     phone_number = models.CharField(max_length=50, blank=True, null=True)
     address = models.ForeignKey('Address', on_delete=models.CASCADE, null=True)

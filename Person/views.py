@@ -67,7 +67,6 @@ class PeopleApiView(viewsets.ModelViewSet):
         district = request.data['district']
         street = request.data['street']
         building = request.data['building']
-        healths_id = request.data['healths']
         diseases_id = request.data['diseases']
         habits_id = request.data['habits']
         password = request.data['password']
@@ -76,7 +75,6 @@ class PeopleApiView(viewsets.ModelViewSet):
         person = Person.objects.create(name=name, username=username, password=password, phone_number=phone_number,
                                        address_id=address_id, email=email, gender=gender)
         person.disease.add(*diseases_id)
-        person.health.add(*healths_id)
         person.habit.add(*habits_id)
         person.save()
         serializer = PersonSerializer(person)

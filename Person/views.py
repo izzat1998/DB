@@ -22,13 +22,19 @@ class PeopleApiView(viewsets.ModelViewSet):
 
     def get_queryset(self):
         qs = Person.objects.all()
-        query = self.request.GET.get('q')
-        if query is not None:
-            qs = qs.filter(
-                Q(disease__name__icontains=query) | Q(habit__name__icontains=query) | Q(
-                    health__name__icontains=query) | Q(address__region__name__icontains=query) | Q(
-                    address__city__name__icontains=query) | Q(address__district__name__icontains=query) | Q(
-                    address__street__name__icontains=query) | Q(address__building__name__icontains=query))
+        region = self.request.GET.get('region_id')
+        city = self.request.GET.get('city_id')
+        district = self.request.GET.get('district_id')
+        street = self.request.GET.get('street_id')
+        building = self.request.GET.get('building_id')
+
+        qs = qs.filter(region=region, city=city, district=district, street=street, building=building)
+
+        # qs = qs.filter(
+        #         Q(disease__name__icontains=query) | Q(habit__name__icontains=query) | Q(
+        #             health__name__icontains=query) | Q(address__region__name__icontains=query) | Q(
+        #             address__city__name__icontains=query) | Q(address__district__name__icontains=query) | Q(
+        #             address__street__name__icontains=query) | Q(address__building__name__icontains=query))
         return qs
 
     def create(self, request, *args, **kwargs):
@@ -113,6 +119,7 @@ class AddressApiView(viewsets.ModelViewSet):
         district_id = request.data['district']
         street_id = request.data['street']
         building_id = request.data['building']
+
         address = Address.objects.create(region_id=region_id, city_id=city_id, district_id=district_id,
                                          street_id=street_id, building_id=building_id,
                                          name=name)
@@ -170,7 +177,7 @@ class StreetApiView(viewsets.ModelViewSet):
         query = self.request.GET.get('q')
         if query is not None:
             qs = qs.filter(
-                Q(street__name__icontains=query))
+                Q(district__name__icontains=query))
         return qs
 
 
@@ -183,5 +190,5 @@ class BuildingApiView(viewsets.ModelViewSet):
         query = self.request.GET.get('q')
         if query is not None:
             qs = qs.filter(
-                Q(building__name__icontains=query))
+                Q(street__name__icontains=query))
         return qs

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 
-from Person.views import PeopleApiView, HabitApiView, DiseaseApiView, HealthApiView, AddressApiView, RegionApiView, \
+from Person.views import PeopleApiView, HabitApiView, DiseaseApiView, AddressApiView, RegionApiView, \
     CityApiView, DistrictApiView, StreetApiView, BuildingApiView, PersonLoginApiView
 from rest_framework import routers
 
@@ -9,7 +9,6 @@ from stats.views import StatisticsApiView
 
 router = routers.DefaultRouter()
 router.register('people', PeopleApiView)
-router.register('health', HealthApiView)
 router.register('disease', DiseaseApiView)
 router.register('habit', HabitApiView)
 router.register('address', AddressApiView)

@@ -10,8 +10,8 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from Person.models import Person, Habit, Disease, Health, Address, Region, City, District, Street, Building
-from Person.serializers import PersonSerializer, HealthSerializer, HabitSerializer, DiseaseSerializer, \
+from Person.models import Person, Habit, Disease, Address, Region, City, District, Street, Building
+from Person.serializers import PersonSerializer, HabitSerializer, DiseaseSerializer, \
     AddressSerializer, CitySerializer, RegionSerializer, DistrictSerializer, StreetSerializer, BuildingSerializer, \
     UserLoginSerializer
 
@@ -106,18 +106,6 @@ class DiseaseApiView(viewsets.ModelViewSet):
 class HabitApiView(viewsets.ModelViewSet):
     queryset = Habit.objects.all()
     serializer_class = HabitSerializer
-
-    # def get_queryset(self):
-    #     qs = Disease.objects.all()
-    #     query = self.request.GET.get()
-    #     if query is not None:
-    #         qs = qs.filter()
-    #     return qs
-
-
-class HealthApiView(viewsets.ModelViewSet):
-    queryset = Health.objects.all()
-    serializer_class = HealthSerializer
 
     # def get_queryset(self):
     #     qs = Disease.objects.all()

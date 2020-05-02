@@ -2,18 +2,12 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 from rest_framework import serializers
 
-from Person.models import Person, Habit, Health, Disease, Address, Region, City, District, Street, Building
+from Person.models import Person, Habit, Disease, Address, Region, City, District, Street, Building
 
 
 class HabitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Habit
-        fields = '__all__'
-
-
-class HealthSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Health
         fields = '__all__'
 
 
@@ -98,7 +92,6 @@ class AddressSerializer(serializers.ModelSerializer):
 class PersonSerializer(serializers.ModelSerializer):
     disease = DiseaseSerializer(many=True)
     habit = HabitSerializer(many=True)
-    health = HealthSerializer(many=True)
     address = AddressSerializer()
 
     class Meta:

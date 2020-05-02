@@ -25,10 +25,12 @@ class Person(models.Model):
     address = models.ForeignKey('Address', on_delete=models.CASCADE, null=True, blank=True)
     disease = models.ManyToManyField('Disease', related_name='people', blank=True)
     habit = models.ManyToManyField('Habit', related_name='people', blank=True)
-    health = models.ManyToManyField('Health', related_name='people', blank=True)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        db_table = 'Person'
 
 
 class Disease(models.Model):
@@ -37,6 +39,9 @@ class Disease(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        db_table = 'Disease'
+
 
 class Habit(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
@@ -44,12 +49,8 @@ class Habit(models.Model):
     def __str__(self):
         return self.name
 
-
-class Health(models.Model):
-    name = models.CharField(max_length=255, blank=True, null=True)
-
-    def __str__(self):
-        return self.name
+    class Meta:
+        db_table = 'Habit'
 
 
 ############Address########
@@ -64,6 +65,9 @@ class Address(models.Model):
 
     def __str__(self):
         return f'{self.region} + '
+
+    class Meta:
+        db_table = 'Address'
 
 
 # @receiver(post_save, sender=Address)
@@ -80,6 +84,9 @@ class Region(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        db_table = 'Region'
+
 
 class City(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
@@ -87,6 +94,9 @@ class City(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        db_table = 'City'
 
 
 class District(models.Model):
@@ -96,6 +106,9 @@ class District(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        db_table = 'District'
+
 
 class Street(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
@@ -104,6 +117,9 @@ class Street(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        db_table = 'Street'
+
 
 class Building(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
@@ -111,6 +127,9 @@ class Building(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        db_table = 'Building'
 
 
 class Busyness(models.Model):
@@ -121,9 +140,15 @@ class Busyness(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        db_table = 'Busyness'
+
 
 class Job(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        db_table = 'Job'

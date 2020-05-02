@@ -67,8 +67,8 @@ class PeopleApiView(viewsets.ModelViewSet):
         district = request.data['district']
         street = request.data['street']
         building = request.data['building']
-        diseases_id = request.data['diseases']
-        habits_id = request.data['habits']
+        diseases_id = request.data.get('diseases')
+        habits_id = request.data.get('habits')
         password = request.data['password']
         a = Address.objects.create(region_id=region, city_id=city, district_id=district, street_id=street, building_id=building)
         address_id = a.id

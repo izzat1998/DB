@@ -64,6 +64,13 @@ class Address(models.Model):
         return self.name
 
 
+@receiver(post_save, sender=Address)
+def wtf(sender, instance, created, **kwargs):
+    slug = slugify(instance.name)
+    name = slug
+    up = Address(name=name)
+    up.save()
+
 class Region(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
 

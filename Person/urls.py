@@ -5,6 +5,8 @@ from Person.views import PeopleApiView, HabitApiView, DiseaseApiView, AddressApi
     CityApiView, DistrictApiView, StreetApiView, BuildingApiView, PersonLoginApiView
 from rest_framework import routers
 
+from stats.views import StatisticsApiView
+
 router = routers.DefaultRouter()
 router.register('people', PeopleApiView)
 router.register('disease', DiseaseApiView)
@@ -15,6 +17,7 @@ router.register('city', CityApiView)
 router.register('district', DistrictApiView)
 router.register('street', StreetApiView)
 router.register('building', BuildingApiView)
+router.register('statistic', StatisticsApiView)
 urlpatterns = [
     path('', include(router.urls)),
     path('login/', PersonLoginApiView.as_view(), name='login')

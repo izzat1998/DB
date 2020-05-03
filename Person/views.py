@@ -82,12 +82,12 @@ class PersonLoginApiView(APIView):
         password = data['password']
         if username is None or password is None:
             return Response({'error': 'Please provide both username and password!'})
-        user = authenticate(username=username, password=password)
-        if not user:
-            return Response({'error': 'Invalid credentials!'})
+        # user = authenticate(username=username, password=password)
+        # if not user:
+        #     return Response({'error': 'Invalid credentials!'})
         person = Person.objects.get(username=username, password=password)
-        return Response({'user_id': user.id,
-                         'username': user.username,
+        return Response({'user_id': person.id,
+                         'username': person.username,
                          'user_type': person.user_type})
 
 

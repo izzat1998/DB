@@ -6,7 +6,7 @@ from rest_framework import routers
 from stats.views import StatisticsApiView
 
 router = routers.DefaultRouter()
-router.register('stats', StatisticsApiView)
+router.register('', StatisticsApiView)
 
 urlpatterns = [
     path('', include(router.urls))

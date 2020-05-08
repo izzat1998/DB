@@ -86,7 +86,7 @@ class PersonLoginApiView(APIView):
         # if not user:
         #     return Response({'error': 'Invalid credentials!'})
         person = Person.objects.get(username=username, password=password)
-        return Response({'user_id': person.id,
+        return Response({'id': person.id,
                          'username': person.username,
                          'user_type': person.user_type})
 

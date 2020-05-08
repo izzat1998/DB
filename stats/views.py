@@ -1,5 +1,9 @@
 from django.shortcuts import render
 from rest_framework import viewsets
+from rest_framework.generics import ListAPIView
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from serializer import serialize
 
 from stats.models import Statistics
 from stats.serializers import StatisticsSerializer
@@ -8,3 +12,20 @@ from stats.serializers import StatisticsSerializer
 class StatisticsApiView(viewsets.ModelViewSet):
     queryset = Statistics.objects.all()
     serializer_class = StatisticsSerializer
+
+
+class DataApiView(APIView):
+    def get(self, request, **kwargs):
+        stats = Statistics.objects.filter(person_id=self.kwargs['person_id'])
+
+        walking_list = []
+        smoking_list = []
+        alcohol_list = []
+
+        walking_list.append(stats.values_list('walking_meters_per_day', flat=True))
+        smoking_list.append(stats.values_list('avg_num_of_cigarettes_per_day', flat=True))
+        alcohol_list.append(stats.values_list('avg_amount_of_alcohol_per_day', flat=True))
+        response = [{'person_id': self.kwargs['person_id'], 'walking': w, 'smoking': s, 'alcohol': a} for
+                    w, s, a in zip(walking_list, smoking_list, alcohol_list)]
+
+        return Response(response)

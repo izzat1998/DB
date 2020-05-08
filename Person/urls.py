@@ -17,7 +17,8 @@ router.register('city', CityApiView)
 router.register('district', DistrictApiView)
 router.register('street', StreetApiView)
 router.register('building', BuildingApiView)
-router.register('statistic', StatisticsApiView)
+# router.register('stats', StatisticsApiView)
+
 urlpatterns = [
     path('', include(router.urls)),
     path('login/', PersonLoginApiView.as_view(), name='login')

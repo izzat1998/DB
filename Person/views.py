@@ -79,6 +79,7 @@ class PeopleApiView(viewsets.ModelViewSet):
         person = Person.objects.get(id=request.data.get('id'))
         name = request.data.get('name')
         username = request.data.get('username')
+        address = request.data.get('address')
         email = request.data.get('email')
         gender = request.data.get('gender')
         phone_number = request.data.get('phone_number')
@@ -91,9 +92,9 @@ class PeopleApiView(viewsets.ModelViewSet):
         habits_id = request.data.getlist('habits')
         password = request.data.get('password')
         user_type = request.data.get('user_type')
-        a = Address.objects.get(region_id=int(region), city_id=int(city), district_id=int(district),
-                                street_id=int(street), building_id=int(building))
-
+        # a = Address.objects.get(region_id=int(region), city_id=int(city), district_id=int(district),
+        #                         street_id=int(street), building_id=int(building))
+        a = Address.objects.get(id=int(address))
         person.address_id = a.id
         person.name = name
         person.username = username

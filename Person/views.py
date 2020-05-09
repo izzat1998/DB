@@ -62,10 +62,46 @@ class PeopleApiView(viewsets.ModelViewSet):
         habits_id = request.data.getlist('habits')
         password = request.data.get('password')
         user_type = request.data.get('user_type')
-        a = Address.objects.create(region_id=int(region), city_id=int(city), district_id=int(district), street_id=int(street), building_id=int(building))
+        a = Address.objects.create(region_id=int(region), city_id=int(city), district_id=int(district),
+                                   street_id=int(street), building_id=int(building))
         address_id = a.id
         person = Person.objects.create(name=name, username=username, password=password, phone_number=phone_number,
                                        address_id=address_id, email=email, gender=gender, user_type=user_type)
+        if diseases_id:
+            person.disease.add(*diseases_id)
+        if habits_id:
+            person.habit.add(*habits_id)
+        person.save()
+        serializer = PersonSerializer(person)
+        return JsonResponse(serializer.data, safe=False)
+
+    def update(self, request, *args, **kwargs):
+        person = Person.objects.get(id=self.kwargs['id'])
+        name = request.data.get('name')
+        username = request.data.get('username')
+        email = request.data.get('email')
+        gender = request.data.get('gender')
+        phone_number = request.data.get('phone_number')
+        region = request.data.get('region')
+        city = request.data.get('city')
+        district = request.data.get('district')
+        street = request.data.get('street')
+        building = request.data.get('building')
+        diseases_id = request.data.getlist('diseases')
+        habits_id = request.data.getlist('habits')
+        password = request.data.get('password')
+        user_type = request.data.get('user_type')
+        a = Address.objects.get(region_id=int(region), city_id=int(city), district_id=int(district),
+                                street_id=int(street), building_id=int(building))
+
+        person.address_id = a.id
+        person.name = name
+        person.username = username
+        person.email = email
+        person.gender = gender
+        person.phone_number = phone_number
+        person.password = password
+        person.user_type = user_type
         if diseases_id:
             person.disease.add(*diseases_id)
         if habits_id:

@@ -76,7 +76,7 @@ class PeopleApiView(viewsets.ModelViewSet):
         return JsonResponse(serializer.data, safe=False)
 
     def update(self, request, *args, **kwargs):
-        person = Person.objects.get(id=self.kwargs['id'])
+        person = Person.objects.get(id=request.data.get('id'))
         name = request.data.get('name')
         username = request.data.get('username')
         email = request.data.get('email')
